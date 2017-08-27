@@ -11,3 +11,9 @@
 /* Register all custom sidebars */
 include_once 'sidebars/sidebar-alternative.php';
 add_action( 'widgets_init', 'alt_sidebar');
+
+// Register all custom widgets
+include_once 'widgets/widget-call-to-action.php';
+add_action( 'widgets_init', function(){
+	register_widget( 'Call_To_Action' );
+});
