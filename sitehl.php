@@ -10,7 +10,10 @@
 
 /* Register all custom sidebars */
 include_once 'sidebars/sidebar-alternative.php';
+include_once 'sidebars/sidebar-header.php';
+
 add_action( 'widgets_init', 'alt_sidebar');
+add_action( 'widgets_init', 'header_sidebar');
 
 // Register all custom widgets
 include_once 'widgets/widget-call-to-action.php';

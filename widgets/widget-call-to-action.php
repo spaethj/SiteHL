@@ -10,7 +10,7 @@ class Call_To_Action extends WP_Widget {
 	function __construct() {
 		parent::__construct(
 			'cta',
-			esc_html__( 'Call to action button', 'text_domain' ), // Name
+			esc_html__( 'Call to action button', 'text_domain' ),
 			array( 'description' => esc_html__( 'Generate red button with link', 'text_domain' ), )
 		);
 	}
@@ -25,10 +25,11 @@ class Call_To_Action extends WP_Widget {
 	 */
 	public function widget( $args, $instance ) {
 		echo $args['before_widget'];
-		if (!empty( $instance['title']) && !empty($instance['link']) ) {
+		if (!empty( $instance['cta_title']) && !empty($instance['cta_link']) ) {
 			echo $args['before_title'];
-			echo '<a href="' . esc_html($instance['link']) . '" title="' . $instance['title'] . '">';
-			echo apply_filters( 'widget_title', $instance['title'] );
+			echo '<a href="' . esc_html($instance['cta_link']) . '" title="' . $instance['cta_title'] . '">';
+			echo apply_filters( 'widget_title', $instance['cta_title'] );
+			echo '</a>';
 			echo $args['after_title'];
 		}
 		echo $args['after_widget'];
@@ -42,17 +43,17 @@ class Call_To_Action extends WP_Widget {
 	 * @param array $instance Previously saved values from database.
 	 */
 	public function form( $instance ) {
-		$title = ! empty( $instance['title'] ) ? $instance['title'] : esc_html__( 'Title', 'text_domain' );
-		$link = ! empty( $instance['link'] ) ? $instance['link'] : esc_html__( 'Link', 'text_domain' );
+		$title = ! empty( $instance['cta_title'] ) ? $instance['cta_title'] : esc_html__( '', 'text_domain' );
+		$link = ! empty( $instance['cta_link'] ) ? $instance['cta_link'] : esc_html__( '', 'text_domain' );
 
 		?>
 		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_attr_e( 'Title:', 'text_domain' ); ?></label>
-			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>">
+			<label for="<?php echo esc_attr( $this->get_field_id( 'cta_title' ) ); ?>"><?php esc_attr_e( 'Title:', 'text_domain' ); ?></label>
+			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'cta_title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'cta_title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>">
 		</p>
 		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'link' ) ); ?>"><?php esc_attr_e( 'Link:', 'text_domain' ); ?></label>
-			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'link' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'link' ) ); ?>" type="text" value="<?php echo esc_attr( $link ); ?>">
+			<label for="<?php echo esc_attr( $this->get_field_id( 'cta_link' ) ); ?>"><?php esc_attr_e( 'Link:', 'text_domain' ); ?></label>
+			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'cta_link' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'cta_link' ) ); ?>" type="text" value="<?php echo esc_attr( $link ); ?>">
 		</p>
 		<?php
 	}
@@ -69,8 +70,8 @@ class Call_To_Action extends WP_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance = array();
-		$instance['title'] = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
-		$instance['link'] = ( ! empty( $new_instance['link'] ) ) ? strip_tags( $new_instance['link'] ) : '';
+		$instance['cta_title'] = ( ! empty( $new_instance['cta_title'] ) ) ? strip_tags( $new_instance['cta_title'] ) : '';
+		$instance['cta_link'] = ( ! empty( $new_instance['cta_link'] ) ) ? strip_tags( $new_instance['cta_link'] ) : '';
 
 		return $instance;
 	}
